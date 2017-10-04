@@ -31,7 +31,7 @@ delete() {
 }
 
 attach() {
-    rexray -f json volume attach ${BUCKET}
+    rexray -f json volume attach ${BUCKET} 2>&1
 
     if [ $? -ne 0 ]; then
         print_error "Failed to attach volume ${BUCKET}"
@@ -41,7 +41,7 @@ attach() {
 }
 
 detach() {
-    rexray -f json volume detach ${BUCKET}
+    rexray -f json volume detach ${BUCKET} 2>&1
 
     if [ $? -ne 0 ]; then
         print_error "Failed to detach volume ${BUCKET}"
@@ -51,7 +51,7 @@ detach() {
 }
 
 mount() {
-    rexray -f json volume mount ${BUCKET}
+    rexray -f json volume mount ${BUCKET} 2>&1
 
     if [ $? -ne 0 ]; then
         print_error "Failed to mount volume ${BUCKET}"
@@ -62,7 +62,7 @@ mount() {
 }
 
 unmount() {
-    rexray -f json unmount attach ${BUCKET}
+    rexray -f json unmount attach ${BUCKET} 2>&1
 
     if [ $? -ne 0 ]; then
         print_error "Failed to attach volume ${BUCKET}"
