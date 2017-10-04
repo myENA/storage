@@ -1,0 +1,4 @@
+libstorage:
+  logging:
+    level: info
+  service: s3fs

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Notes:
+#  - Please install "jq" package before using this driver.
+WAIT_SLEEP_TIME_IN_SECONDS=2
+
+if [ -e "$(dirname $0)/common.sh" ]; then
+    source $(dirname $0)/common.sh
+elif [ -e "$(dirname $0)/../common/common.sh" ]; then
+    source $(dirname $0)/../common/common.sh
+fi
+
+BUCKET="$1"
+
+init() {
+    print_success
+}
+
+create() {
+    rexray -f json volume create ${BUCKET} 2>&1
+
+    if [ $? -ne 0 ]; then
+        print_error "Failed to create volume ${BUCKET}"
+    fi
+
+    print_success
+}
+
+delete() {
+    print__not_supported
+}
+
+attach() {
+    rexray -f json volume attach ${BUCKET}
+
+    if [ $? -ne 0 ]; then
+        print_error "Failed to attach volume ${BUCKET}"
+    fi
+
+    print_success
+}
+
+detach() {
+    rexray -f json volume detach ${BUCKET}
+
+    if [ $? -ne 0 ]; then
+        print_error "Failed to detach volume ${BUCKET}"
+    fi
+
+    print_success
+}
+
+mount() {
+    rexray -f json volume mount ${BUCKET}
+
+    if [ $? -ne 0 ]; then
+        print_error "Failed to mount volume ${BUCKET}"
+    fi
+
+    print_success
+
+}
+
+unmount() {
+    rexray -f json unmount attach ${BUCKET}
+
+    if [ $? -ne 0 ]; then
+        print_error "Failed to attach volume ${BUCKET}"
+    fi
+
+    print_success
+}
+
+# Every script must call main as such
+main "$@"
